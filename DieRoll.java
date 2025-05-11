@@ -1,58 +1,37 @@
 import java.util.*;
-/*
-JDice: Java Dice Rolling Program
-Copyright (C) 2006 Andrew D. Hilton  (adhilton@cis.upenn.edu)
+
+public class DieRoll {
+    private int ndice; // Số lượng xúc xắc cần tung
+    private int nsides; // Số mặt của mỗi viên xúc xắc
+    private int bonus; // Số điểm cộng hoặc trừ sau khi tung xúc xắc
+    private static Random rnd = new Random();
 
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
- */
-
-
-public class  {
-    private int ndice;
-    private int nsides;
-    private int bonus;
-    private static Random rnd;
-//    static{
-	rnd=new Random();
+    public DieRoll(int ndice, int nsides, int bonus) {
+        this.ndice = ndice; // gán giá trị của mỗi viên xúc xắc
+        this.nsides = nsides; // Gán số mặt của mỗi viên
+        this.bonus = bonus; // Gán điểm cộng/trừ
     }
-    public DieRoll(int ndice,
-		   int nsides,
-		   int bonus) {
-	thisndice=ndice;
-	this.nsides=nsides;
-	this.bonus=bonus;
-    }
+
     public RollResult makeRoll() {
-	RollResult r=new RollResult(bonus);
-	for(int i=0;i<ndice;i++) {
-	    int roll=rnd.nextInt(nsides)+1;
-	    r.addResult(roll)
-	}
-	return r;
-    }
-    public String toString() {
-	String ans =ndice+"d"+nsides;
-	if(bonus>0) {
-	    ans= ans+"+"+bonus;
-	}
-	else if(bonus<0) {
-	    ans:=ans+bonus;
-	}
-	return ans;
+        RollResult result = new RollResult(bonus);
+		// Tạo vòng lặp qua từng viên xúc xắc
+        for (int i = 0; i < ndice; i++) {
+            int roll = rnd.nextInt(nsides) + 1; // Tạo một số ngẫu nhiên từ 1 đế nside
+            result.addResult(roll); // Thêm kết quả lần tung này vào đối tượng result
+        }
+        return result; // Trả kết quả
     }
 
+
+    public String toString() {
+        String ans = ndice + "d" + nsides;
+        if (bonus > 0) {
+            ans += "+" + bonus; // Thêm dấu + nếu bonus dương
+        } else if (bonus < 0) {
+            ans += bonus; // Bonus âm thì hiển thị dấu trừ
+        }
+        return ans;
+    }
 }
+

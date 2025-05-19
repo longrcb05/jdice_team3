@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * JDice: Java Dice Rolling Program
@@ -19,6 +20,25 @@ public class DiceParser {
      * - Make state management clearer
      * - Improve performance by reducing string operations
      */
+	
+	 private static final Logger logger = Logger.getLogger(DiceParser.class.getName());
+
+	    static {
+	        // Cấu hình logger đơn giản: hiển thị log level và message
+	        logger.setUseParentHandlers(false); // Tắt handler mặc định
+	        ConsoleHandler handler = new ConsoleHandler();
+	        handler.setFormatter(new SimpleFormatter() {
+	            @Override
+	            public String format(LogRecord record) {
+	                return String.format("[%s] %s\n",
+	                    record.getLevel(),
+	                    record.getMessage());
+	            }
+	        });
+	        logger.addHandler(handler);
+	        logger.setLevel(Level.ALL); // Ghi lại tất cả log level
+	    }
+	    
     private static class StringStream {
         private StringBuffer buffer;
         
